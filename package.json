@@ -4,7 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "install:all": "npm install && npm run install:front && npm run install:back",
+    "install:front": "npm --prefix ./frontend install ./frontend",
+    "install:back": "npm --prefix ./backend install ./backend",
     "prepare": "husky install"
   },
   "author": "",
