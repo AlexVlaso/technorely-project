@@ -1,0 +1,65 @@
+@import '../../assets/styles/vars.scss';
+
+.container {
+  position: relative;
+  padding: 10px 0 10px;
+}
+
+.menu {
+  display: flex;
+  padding: 10px;
+  justify-content: center;
+  align-items: center;
+  border-radius: 100%;
+  background-color: rgb(182, 179, 179);
+  cursor: pointer;
+}
+
+.content {
+  position: absolute;
+  top: 35px;
+  right: 0px;
+  display: none;
+  width: 100px;
+  background-color: rgb(215, 212, 212);
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.container:hover {
+  .menu {
+    background-color: rgb(203, 202, 202);
+  }
+  .content {
+    display: block;
+  }
+}
+
+.contentItem {
+  text-align: center;
+  border-bottom: 1px gray solid;
+}
+
+.btn {
+  padding: 10px 15px;
+  display: flex;
+  justify-content: center;
+  column-gap: 10px;
+  width: 100%;
+  height: 100%;
+  border: none;
+  background-color: transparent;
+  color: $text-color;
+  cursor: pointer;
+}
+
+.btn:hover {
+  background-color: rgb(191, 187, 187);
+}
+
+.contentItem:last-child {
+  border-bottom: none;
+  .btn {
+    color: red;
+  }
+}
