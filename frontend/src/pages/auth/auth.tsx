@@ -4,6 +4,7 @@ import { AppRoute } from '../../lib/constants/route.constant';
 import { useCallback } from 'react';
 import { SignIn } from '../../components/sign-in/sign-in';
 import { Header } from '../../components/header/header';
+import { SignUp } from '../../components/sign-up/sign-up';
 
 const Auth: React.FC = () => {
   const location = useLocation();
@@ -13,7 +14,7 @@ const Auth: React.FC = () => {
       case AppRoute.SIGN_IN:
         return <SignIn />;
       case AppRoute.SIGN_UP:
-        return <div>TEST2</div>;
+        return <SignUp />;
     }
     return null;
   }, [location.pathname]);

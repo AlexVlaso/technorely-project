@@ -14,7 +14,7 @@ const SignIn: React.FC = () => {
   }, []);
   return (
     <div className={styles.container}>
-      <h1>Sign Up</h1>
+      <h1>Sign In</h1>
       <Formik initialValues={initialValues} onSubmit={onSubmit}>
         <Form className={styles.form}>
           <label htmlFor="email" className={styles.label}>
