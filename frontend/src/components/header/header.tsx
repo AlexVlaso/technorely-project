@@ -3,7 +3,7 @@ import { faLandmark } from '@fortawesome/free-solid-svg-icons';
 import styles from './styles.module.scss';
 import { UserMenu } from '../user-menu/user-menu';
 
-const Header = () => {
+const Header: React.FC = () => {
   return (
     <div className={styles.container}>
       <div className={styles.logo}>

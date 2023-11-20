@@ -3,7 +3,7 @@ import { faAddressCard, faUser } from '@fortawesome/free-solid-svg-icons';
 import styles from './styles.module.scss';
 import { faDoorOpen } from '@fortawesome/free-solid-svg-icons/faDoorOpen';
 
-const UserMenu = () => {
+const UserMenu: React.FC = () => {
   return (
     <div className={styles.container}>
       <div className={styles.menu}>
