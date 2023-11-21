@@ -1,9 +1,9 @@
 import { Formik, Field, Form } from 'formik';
 import { useCallback } from 'react';
-import { SignUpValues } from '../../lib/types/sign-up.type';
+import { type SignUpValues } from '../../lib/types/types';
 import { clsx } from 'clsx';
 import styles from './styles.module.scss';
-import { SignUpValidation } from '../../lib/validation/sign-up.validation';
+import { SignUpValidation } from '../../lib/validation/validation';
 
 const SignUp: React.FC = () => {
   const initialValues: SignUpValues = {

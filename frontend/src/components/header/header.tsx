@@ -5,13 +5,13 @@ import { UserMenu } from '../user-menu/user-menu';
 
 const Header: React.FC = () => {
   return (
-    <div className={styles.container}>
+    <header className={styles.container}>
       <div className={styles.logo}>
         <FontAwesomeIcon icon={faLandmark} />
         <div>Companies Manager</div>
       </div>
       <UserMenu />
-    </div>
+    </header>
   );
 };
 

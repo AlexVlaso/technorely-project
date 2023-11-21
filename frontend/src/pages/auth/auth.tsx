@@ -1,5 +1,4 @@
 import { useLocation } from 'react-router-dom';
-import styles from './styles.module.scss';
 import { AppRoute } from '../../lib/constants/route.constant';
 import { useCallback } from 'react';
 import { SignIn } from '../../components/sign-in/sign-in';
@@ -22,7 +21,7 @@ const Auth: React.FC = () => {
   return (
     <div>
       <Header />
-      <div className={styles.formWrapper}>{getScreen()}</div>
+      <main>{getScreen()}</main>
     </div>
   );
 };

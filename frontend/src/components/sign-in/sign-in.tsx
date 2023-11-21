@@ -1,8 +1,8 @@
 import { Formik, Field, Form } from 'formik';
-import styles from './styles.module.scss';
 import { useCallback } from 'react';
-import { type SignInValues } from '../../lib/types/sign-in.type';
-import { SignInValidation } from '../../lib/validation/sign-in.validation';
+import { type SignInValues } from '../../lib/types/types';
+import { SignInValidation } from '../../lib/validation/validation';
+import styles from '../../assets/styles/common-modules/form.module.scss';
 
 const SignIn: React.FC = () => {
   const initialValues: SignInValues = {

@@ -1,0 +1,37 @@
+@import '../../assets/styles/vars.scss';
+
+.container {
+  position: relative;
+  padding: 20px;
+  width: 700px;
+  border: 2px solid white;
+  border-radius: 8px;
+  font-size: 18px;
+  background-color: $main-color-dark;
+  box-shadow: 1px 5px 3px;
+}
+
+.category {
+  margin: 20px;
+}
+
+.categoryTitle {
+  margin-right: 10px;
+  font-weight: bold;
+  font-size: 20px;
+}
+
+.edit {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  border: none;
+  background-color: transparent;
+  color: $addition-color;
+  font-size: 22px;
+  cursor: pointer;
+}
+
+.edit:hover {
+  color: $addition-color-dark;
+}

@@ -1,0 +1,33 @@
+@import '../../assets/styles/common-modules/form.module.scss';
+
+.container {
+  position: relative;
+  padding: 20px;
+  width: 500px;
+  box-shadow: none;
+}
+
+.form {
+  width: 100%;
+}
+
+.fieldWrapper {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.btn {
+  margin: 20px 0 0 0;
+}
+
+.close {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  border: none;
+  background-color: transparent;
+  color: $text-color;
+  font-size: 25px;
+  cursor: pointer;
+}

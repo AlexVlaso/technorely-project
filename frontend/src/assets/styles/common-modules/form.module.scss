@@ -1,4 +1,4 @@
-@import '../../assets/styles/vars.scss';
+@import '../vars.scss';
 
 .container {
   padding: 10px;
@@ -38,6 +38,11 @@
 .error {
   font-size: 14px;
   color: red;
+}
+
+.textarea {
+  height: 100px;
+  resize: none;
 }
 
 .btn {

@@ -1,2 +1,3 @@
-export { type SignInValues } from './sign-in.type';
-export { type SignUpValues } from './sign-up.type';
+export { type SignInValues } from './sign-in-form.type';
+export { type SignUpValues } from './sign-up-form.type';
+export { type CompanyValues } from './company-form.type';
