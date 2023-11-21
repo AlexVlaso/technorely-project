@@ -1,0 +1,49 @@
+@import '../../assets/styles/vars.scss';
+
+.table {
+  border-collapse: collapse;
+  background: $main-color-dark;
+  border-radius: 6px;
+  overflow: hidden;
+  width: 100%;
+  box-shadow: 1px 2px 3px;
+}
+
+.thead {
+  background-color: $addition-color;
+  color: white;
+}
+
+.row {
+  border-bottom: 1px solid $addition-color;
+}
+
+th {
+  padding: 10px 20px;
+  text-align: center;
+  border-right: 1px solid white;
+}
+
+td {
+  padding: 0 20px;
+  text-align: center;
+}
+
+th:last-child {
+  border: none;
+}
+
+.btn {
+  margin: 15px 0;
+  padding: 5px 10px;
+  background-color: $addition-color;
+  border: none;
+  border-radius: 4px;
+  color: white;
+  box-shadow: 0 2px 3px gray;
+  cursor: pointer;
+}
+
+.btn:hover {
+  background-color: #734330;
+}

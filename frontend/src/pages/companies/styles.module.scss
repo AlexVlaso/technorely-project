@@ -1,0 +1,21 @@
+@import '../../assets/styles/vars.scss';
+
+.add {
+  position: absolute;
+  top: 40px;
+  right: 100px;
+  margin: 15px 0;
+  padding: 10px 20px;
+  display: flex;
+  column-gap: 10px;
+  background-color: $addition-color;
+  border: none;
+  border-radius: 4px;
+  color: white;
+  box-shadow: 0 2px 3px gray;
+  cursor: pointer;
+}
+
+.add:hover {
+  background-color: #734330;
+}
