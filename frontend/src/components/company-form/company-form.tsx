@@ -8,10 +8,11 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faXmark } from '@fortawesome/free-solid-svg-icons';
 
 type Property = {
+  title?: string;
   onClose: () => void;
 };
 
-const CompanyForm: React.FC<Property> = ({ onClose }) => {
+const CompanyForm: React.FC<Property> = ({ onClose, title = 'Company' }) => {
   const initialValues: CompanyValues = {
     name: '',
     address: '',
@@ -30,7 +31,7 @@ const CompanyForm: React.FC<Property> = ({ onClose }) => {
       <button className={styles.close} onClick={onClose}>
         <FontAwesomeIcon icon={faXmark} />
       </button>
-      <h1>Company</h1>
+      <h1>{title}</h1>
       <Formik
         initialValues={initialValues}
         onSubmit={onSubmit}

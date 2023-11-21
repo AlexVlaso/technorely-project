@@ -8,7 +8,7 @@ import { useCallback, useState } from 'react';
 const CompanyView: React.FC = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
-  const handlerModal = useCallback(() => {
+  const handleModal = useCallback(() => {
     setIsModalOpen((isModalOpen) => !isModalOpen);
   }, []);
 
@@ -38,11 +38,11 @@ const CompanyView: React.FC = () => {
       <div className={styles.category}>
         <span className={styles.categoryTitle}>Type:</span>Private business
       </div>
-      <button className={styles.edit} onClick={handlerModal}>
+      <button className={styles.edit} onClick={handleModal}>
         <FontAwesomeIcon icon={faPenToSquare} />
       </button>
-      <Modal isOpen={isModalOpen} onClose={handlerModal}>
-        <CompanyForm onClose={handlerModal} />
+      <Modal isOpen={isModalOpen} onClose={handleModal}>
+        <CompanyForm onClose={handleModal} title="Edit Company" />
       </Modal>
     </div>
   );
