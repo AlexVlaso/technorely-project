@@ -1,6 +1,6 @@
 const AppRoute = {
   ROOT: '/',
-  SIGN_IN: '/sign-in',
+  SIGN_IN: '/login',
   SIGN_UP: '/sign-up',
   PROFILE: '/profile',
   COMPANIES: '/companies',

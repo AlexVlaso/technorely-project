@@ -10,6 +10,7 @@
   border: 2px solid white;
   border-radius: 8px;
   box-shadow: 1px 5px 3px;
+  background-color: $main-color-dark;
 }
 
 .form {
@@ -32,6 +33,11 @@
 
 .label {
   margin-top: 15px;
+}
+
+.error {
+  font-size: 14px;
+  color: red;
 }
 
 .btn {
