@@ -2,6 +2,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faAddressCard, faUser } from '@fortawesome/free-solid-svg-icons';
 import styles from './styles.module.scss';
 import { faDoorOpen } from '@fortawesome/free-solid-svg-icons/faDoorOpen';
+import { Link } from 'react-router-dom';
+import { AppRoute } from '../../lib/constants/route.constant';
 
 const UserMenu: React.FC = () => {
   return (
@@ -11,10 +13,10 @@ const UserMenu: React.FC = () => {
       </div>
       <ul className={styles.content}>
         <li className={styles.contentItem}>
-          <button className={styles.btn}>
+          <Link className={styles.btn} to={AppRoute.PROFILE}>
             <FontAwesomeIcon icon={faAddressCard} />
             Profile
-          </button>
+          </Link>
         </li>
         <li className={styles.contentItem}>
           <button className={styles.btn}>

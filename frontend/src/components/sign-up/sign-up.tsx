@@ -4,8 +4,15 @@ import { type SignUpValues } from '../../lib/types/types';
 import { clsx } from 'clsx';
 import styles from './styles.module.scss';
 import { SignUpValidation } from '../../lib/validation/validation';
+import { faXmark } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
-const SignUp: React.FC = () => {
+type Property = {
+  title?: string;
+  onClose?: () => void;
+};
+
+const SignUp: React.FC<Property> = ({ title = 'Sign Up', onClose }) => {
   const initialValues: SignUpValues = {
     email: '',
     password: '',
@@ -23,7 +30,12 @@ const SignUp: React.FC = () => {
 
   return (
     <div className={styles.container}>
-      <h1>Sign Up</h1>
+      <h1>{title}</h1>
+      {onClose && (
+        <button className={styles.close} onClick={onClose}>
+          <FontAwesomeIcon icon={faXmark} />
+        </button>
+      )}
       <Formik
         initialValues={initialValues}
         onSubmit={onSubmit}
