@@ -6,6 +6,7 @@ import { User } from './user/entity/user.entity';
 
 import { CompanyModule } from './company/company.module';
 import { Company } from './company/entity/company.entity';
+import { AuthModule } from './auth/auth.module';
 
 @Module({
   imports: [
@@ -26,6 +27,7 @@ import { Company } from './company/entity/company.entity';
     }),
     UserModule,
     CompanyModule,
+    AuthModule,
   ],
   controllers: [],
   providers: [],

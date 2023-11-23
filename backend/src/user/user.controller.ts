@@ -7,22 +7,22 @@ import {
   Post,
   Put,
 } from '@nestjs/common';
-import { UserService } from './user.service';
+import { UsersService } from './user.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 
 @Controller('users')
-export class UserController {
-  constructor(private userService: UserService) {}
+export class UsersController {
+  constructor(private userService: UsersService) {}
 
   @Get()
-  getAll() {
-    return this.userService.getAll();
+  findAll() {
+    return this.userService.findAll();
   }
 
   @Get('/:id')
-  getById(@Param('id') id: string) {
-    return this.userService.getById(+id);
+  findById(@Param('id') id: string) {
+    return this.userService.findById(+id);
   }
 
   @Post()

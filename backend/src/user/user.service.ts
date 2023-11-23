@@ -1,25 +1,33 @@
 import { BadRequestException, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { User } from './entity/user.entity';
-import { Repository } from 'typeorm';
+import { DeleteResult, Repository } from 'typeorm';
 import { CreateUserDto } from './dto/create-user.dto';
 import { hashPassword } from 'src/libs/helpers/hash.helper';
 import { UpdateUserDto } from './dto/update-user.dto';
 
 @Injectable()
-export class UserService {
+export class UsersService {
   constructor(
     @InjectRepository(User) private userRepository: Repository<User>,
   ) {}
 
-  getAll(): Promise<User[]> {
+  findAll(): Promise<User[]> {
     return this.userRepository.find();
   }
 
-  getById(id: number): Promise<User> {
+  findById(id: number): Promise<User | undefined> {
     return this.userRepository.findOne({
       where: {
         id,
+      },
+    });
+  }
+
+  findByEmail(email: string): Promise<User | undefined> {
+    return this.userRepository.findOne({
+      where: {
+        email,
       },
     });
   }
@@ -43,13 +51,11 @@ export class UserService {
     const user = await this.userRepository.findOne({
       where: { id: updateUserDto.id },
     });
-
     Object.assign(user, updateUserDto);
-
     return this.userRepository.save(user);
   }
 
-  delete(id: number) {
+  delete(id: number): Promise<DeleteResult> {
     return this.userRepository.delete({ id });
   }
 }
