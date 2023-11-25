@@ -5,6 +5,7 @@ import { DeleteResult, Repository } from 'typeorm';
 import { CreateUserDto } from './dto/create-user.dto';
 import { hashPassword } from 'src/libs/helpers/hash.helper';
 import { UpdateUserDto } from './dto/update-user.dto';
+import { UserT } from '../libs/types/types';
 
 @Injectable()
 export class UsersService {
@@ -12,16 +13,15 @@ export class UsersService {
     @InjectRepository(User) private userRepository: Repository<User>,
   ) {}
 
-  findAll(): Promise<User[]> {
+  findAll(): Promise<UserT[]> {
     return this.userRepository.find();
   }
 
-  async findById(id: number): Promise<User> {
+  async findById(id: number): Promise<UserT> {
     const user = await this.userRepository.findOne({
       where: {
         id,
       },
-      relations: { companies: true },
     });
     if (!user || !id) {
       throw new BadRequestException('User does not exist');
@@ -29,7 +29,7 @@ export class UsersService {
     return user;
   }
 
-  async findByEmail(email: string): Promise<User | undefined> {
+  async findByEmail(email: string): Promise<UserT> {
     const user = await this.userRepository.findOne({
       where: {
         email,
@@ -41,7 +41,7 @@ export class UsersService {
     return user;
   }
 
-  async create(createUserDto: CreateUserDto): Promise<User> {
+  async create(createUserDto: CreateUserDto): Promise<UserT> {
     const existingUser = await this.userRepository.findOne({
       where: { email: createUserDto.email },
     });
@@ -56,7 +56,7 @@ export class UsersService {
     });
   }
 
-  async update(updateUserDto: UpdateUserDto) {
+  async update(updateUserDto: UpdateUserDto): Promise<UserT> {
     const user = await this.userRepository.findOne({
       where: { id: updateUserDto.id },
     });

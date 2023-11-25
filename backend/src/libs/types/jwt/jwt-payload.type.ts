@@ -1,4 +1,4 @@
-import { UserCommonDetails } from '../user/user-without-password.type';
+import { UserCommonDetails } from '../user/user-common-depails.type';
 
 type JwtPayload = {
   id: number;

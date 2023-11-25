@@ -1,10 +1,17 @@
-import { ForbiddenException, Injectable } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { comparePassword } from 'src/libs/helpers/hash.helper';
 import { User } from 'src/user/entity/user.entity';
 import { UsersService } from 'src/user/user.service';
 import { JwtConstant } from './constants/constants';
-import { JwtPayload } from 'src/libs/types/types';
+import {
+  JwtPayload,
+  LogoutResponse,
+  SignInResponse,
+  UserCommonDetails,
+  UserT,
+  UserWithoutToken,
+} from 'src/libs/types/types';
 import { CreateUserDto } from 'src/user/dto/create-user.dto';
 
 @Injectable()
@@ -14,7 +21,7 @@ export class AuthService {
     private jwtService: JwtService,
   ) {}
 
-  async validateUser(email: string, password: string) {
+  async validateUser(email: string, password: string): Promise<UserT> {
     const user = await this.usersService.findByEmail(email);
     const confirmPassword = await comparePassword(password, user.password);
 
@@ -24,34 +31,45 @@ export class AuthService {
     return null;
   }
 
-  async singUp(createUserDto: CreateUserDto) {
+  async singUp(createUserDto: CreateUserDto): Promise<UserCommonDetails> {
     const user = await this.usersService.create(createUserDto);
-    return this.updateUserToken(user);
+    const { password, ...pureUser } = await this.updateUserToken(user);
+    return pureUser;
   }
 
-  async signIn(user: User) {
-    return user.accessToken && this.verifyToken(user.accessToken)
-      ? user
-      : this.updateUserToken(user);
+  async signIn(user: User): Promise<SignInResponse> {
+    let accessToken = user.accessToken;
+    if (!user.accessToken || !this.verifyToken(user.accessToken)) {
+      const updatedUser = await this.updateUserToken(user);
+      accessToken = updatedUser.accessToken;
+    }
+    return {
+      access_token: accessToken,
+    };
   }
 
-  getProfile(id: number) {
-    return this.usersService.findById(id);
+  async getProfile(id: number): Promise<UserWithoutToken> {
+    const { password, accessToken, ...pureUser } =
+      await this.usersService.findById(id);
+    return pureUser;
   }
 
-  async logout(id: number) {
+  async logout(id: number): Promise<LogoutResponse> {
     const user = await this.usersService.findById(id);
     user.accessToken = null;
     await this.usersService.update(user);
+    return {
+      message: 'Successful logout',
+    };
   }
 
-  updateUserToken(user: User) {
+  updateUserToken(user: UserT): Promise<UserT> {
     const accessToken = this.jwtService.sign({ id: user.id });
     user.accessToken = accessToken;
     return this.usersService.update(user);
   }
 
-  async validateToken(token: string) {
+  async validateToken(token: string): Promise<boolean> {
     try {
       const payload: JwtPayload = this.jwtService.verify(token, {
         secret: JwtConstant.SECRET,
@@ -59,16 +77,20 @@ export class AuthService {
       const user = await this.usersService.findById(payload.id);
       return user.accessToken === token;
     } catch (error) {
-      const payload: JwtPayload = this.jwtService.verify(token, {
-        secret: JwtConstant.SECRET,
-        ignoreExpiration: true,
-      });
-      await this.logout(payload.id);
-      return false;
+      try {
+        const payload: JwtPayload = this.jwtService.verify(token, {
+          secret: JwtConstant.SECRET,
+          ignoreExpiration: true,
+        });
+        await this.logout(payload.id);
+        return false;
+      } catch (error) {
+        return false;
+      }
     }
   }
 
-  verifyToken(token: string) {
+  verifyToken(token: string): boolean {
     try {
       this.jwtService.verify(token, {
         secret: JwtConstant.SECRET,
