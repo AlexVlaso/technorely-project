@@ -20,7 +20,7 @@ export class UsersController {
     return this.userService.findAll();
   }
 
-  @Get('/:id')
+  @Get(':id')
   findById(@Param('id') id: string) {
     return this.userService.findById(+id);
   }
@@ -35,7 +35,7 @@ export class UsersController {
     return this.userService.update(body);
   }
 
-  @Delete('/:id')
+  @Delete(':id')
   delete(@Param('id') id: string) {
     return this.userService.delete(+id);
   }

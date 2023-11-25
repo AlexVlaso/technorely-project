@@ -21,6 +21,7 @@ export class UsersService {
       where: {
         id,
       },
+      relations: { companies: true },
     });
     if (!user || !id) {
       throw new BadRequestException('User does not exist');

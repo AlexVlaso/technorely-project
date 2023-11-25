@@ -1,4 +1,4 @@
-import { IsNotEmpty, IsString } from 'class-validator';
+import { IsNotEmpty, IsOptional, IsString } from 'class-validator';
 import { CreateUserDto } from './create-user.dto';
 
 class UpdateUserDto extends CreateUserDto {
@@ -6,6 +6,7 @@ class UpdateUserDto extends CreateUserDto {
   id: number;
 
   @IsString()
+  @IsOptional()
   accessToken?: string;
 }
 
