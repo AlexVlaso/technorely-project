@@ -1,8 +1,9 @@
 import { UserCommonDetails } from '../user/user-without-password.type';
 
-type JwtPayload = UserCommonDetails & {
-  'iat': number;
-  'exp': number;
+type JwtPayload = {
+  id: number;
+  iat: number;
+  exp: number;
 };
 
 export { JwtPayload };

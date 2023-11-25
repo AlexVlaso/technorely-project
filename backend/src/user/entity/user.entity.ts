@@ -30,6 +30,9 @@ export class User {
   @Column({ name: 'position' })
   position: string;
 
+  @Column({ name: 'access_token', nullable: true })
+  accessToken: string;
+
   @OneToMany(() => Company, (company) => company.user, { onDelete: 'CASCADE' })
   companies: Company[];
 }

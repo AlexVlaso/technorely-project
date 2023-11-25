@@ -1,22 +1,41 @@
-import { Controller, Get, Post, Request, UseGuards } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Get,
+  Post,
+  Request,
+  UseGuards,
+} from '@nestjs/common';
 import { LocalAuthGuard } from './guards/local-auth.guard';
 import { AuthService } from './auth.service';
 import { JwtAuthGuard } from './guards/jwt-auth.guard';
-import { RequestWithUser } from 'src/libs/types/types';
+import { RequestWithUser, RequestWithUserId } from 'src/libs/types/types';
+import { CreateUserDto } from 'src/user/dto/create-user.dto';
 
 @Controller('auth')
 export class AuthController {
   constructor(private authService: AuthService) {}
 
-  @UseGuards(LocalAuthGuard)
-  @Post('signin')
-  async login(@Request() req: RequestWithUser) {
-    return this.authService.login(req.user);
+  @Post('signup')
+  async signUp(@Body() body: CreateUserDto) {
+    return this.authService.singUp(body);
   }
 
-  @UseGuards(JwtAuthGuard)
+  @Post('signin')
+  @UseGuards(LocalAuthGuard)
+  async signIn(@Request() req: RequestWithUser) {
+    return this.authService.signIn(req.user);
+  }
+
   @Get('profile')
-  getProfile(@Request() req: RequestWithUser) {
-    return req.user;
+  @UseGuards(JwtAuthGuard)
+  async getProfile(@Request() req: RequestWithUserId) {
+    return this.authService.getProfile(req.user.id);
+  }
+
+  @Get('logout')
+  @UseGuards(JwtAuthGuard)
+  async logout(@Request() req: RequestWithUserId) {
+    return this.authService.logout(req.user.id);
   }
 }

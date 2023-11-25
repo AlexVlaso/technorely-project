@@ -16,20 +16,28 @@ export class UsersService {
     return this.userRepository.find();
   }
 
-  findById(id: number): Promise<User | undefined> {
-    return this.userRepository.findOne({
+  async findById(id: number): Promise<User> {
+    const user = await this.userRepository.findOne({
       where: {
         id,
       },
     });
+    if (!user || !id) {
+      throw new BadRequestException('User does not exist');
+    }
+    return user;
   }
 
-  findByEmail(email: string): Promise<User | undefined> {
-    return this.userRepository.findOne({
+  async findByEmail(email: string): Promise<User | undefined> {
+    const user = await this.userRepository.findOne({
       where: {
         email,
       },
     });
+    if (!user) {
+      throw new BadRequestException('User does not exist');
+    }
+    return user;
   }
 
   async create(createUserDto: CreateUserDto): Promise<User> {
