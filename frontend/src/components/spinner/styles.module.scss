@@ -1,0 +1,42 @@
+@import '../../assets/styles/vars.scss';
+
+.wrapper {
+  position: absolute;
+  top: 0;
+  z-index: 2000;
+  width: 100vw;
+  height: calc(100vh - 76px);
+}
+
+.container {
+  display: flex;
+  flex-grow: 1;
+  width: 100%;
+  height: 90vh;
+}
+
+.loader {
+  width: 60px;
+  height: 60px;
+  border-width: 9px;
+  position: relative;
+  margin: auto;
+  font-size: 0;
+  border-top: 11px solid $yellow;
+  border-right: 11px solid $yellow;
+  border-bottom: 11px solid $yellow;
+  border-left: 11px solid $text-color;
+  border-radius: 50%;
+  transform: translateZ(0);
+  animation: load 1.1s infinite linear;
+}
+
+@keyframes load {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
+}

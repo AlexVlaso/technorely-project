@@ -12,7 +12,8 @@ import { Profile } from '../profile/profile';
 import { useEffect } from 'react';
 import { useAppDispatch, useAppSelector } from '../../lib/hooks/hooks';
 import { getProfile } from '../../slices/auth/actions';
-
+import { PrivateRoute } from '../../components/private-route/private-route';
+import { Header } from '../../components/header/header';
 function App() {
   const dispatch = useAppDispatch();
   const token = localStorage.getItem('token');
@@ -26,16 +27,26 @@ function App() {
 
   return (
     <Router>
+      <Header />
       <Routes>
         <Route
           path={AppRoute.ROOT}
-          element={<Navigate to={AppRoute.COMPANIES} />}
+          element={<Navigate to={AppRoute.SIGN_IN} />}
         />
         <Route path={AppRoute.SIGN_IN} element={<Auth />} />
         <Route path={AppRoute.SIGN_UP} element={<Auth />} />
-        <Route path={AppRoute.COMPANIES} element={<Companies />} />
-        <Route path={AppRoute.COMPANY_DETAILS} element={<CompanyDetails />} />
-        <Route path={AppRoute.PROFILE} element={<Profile />} />
+        <Route
+          path={AppRoute.COMPANIES}
+          element={<PrivateRoute element={<Companies />} />}
+        />
+        <Route
+          path={AppRoute.COMPANY_DETAILS}
+          element={<PrivateRoute element={<CompanyDetails />} />}
+        />
+        <Route
+          path={AppRoute.PROFILE}
+          element={<PrivateRoute element={<Profile />} />}
+        />
       </Routes>
     </Router>
   );

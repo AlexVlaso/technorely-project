@@ -2,7 +2,6 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import { AppRoute } from '../../lib/constants/route.constant';
 import { useCallback, useEffect } from 'react';
 import { SignIn } from '../../components/sign-in/sign-in';
-import { Header } from '../../components/header/header';
 import { SignUp } from '../../components/sign-up/sign-up';
 import { useAppSelector } from '../../lib/hooks/hooks';
 
@@ -27,12 +26,7 @@ const Auth: React.FC = () => {
     return null;
   }, [location.pathname]);
 
-  return (
-    <div>
-      <Header />
-      <main>{getScreen()}</main>
-    </div>
-  );
+  return <main>{getScreen()}</main>;
 };
 
 export { Auth };

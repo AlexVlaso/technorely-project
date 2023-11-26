@@ -1,6 +1,5 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { CompaniesTable } from '../../components/companies-table/companies-table';
-import { Header } from '../../components/header/header';
 import styles from './styles.module.scss';
 import { faPlus } from '@fortawesome/free-solid-svg-icons';
 import { useCallback, useState } from 'react';
@@ -15,18 +14,15 @@ const Companies: React.FC = () => {
   }, []);
 
   return (
-    <div>
-      <Header />
-      <main>
-        <CompaniesTable />
-        <button className={styles.add} onClick={handleModal}>
-          Add Company <FontAwesomeIcon icon={faPlus} />
-        </button>
-        <Modal isOpen={isModalOpen} onClose={handleModal}>
-          <CompanyForm onClose={handleModal} title="Add Company" />
-        </Modal>
-      </main>
-    </div>
+    <main>
+      <CompaniesTable />
+      <button className={styles.add} onClick={handleModal}>
+        Add Company <FontAwesomeIcon icon={faPlus} />
+      </button>
+      <Modal isOpen={isModalOpen} onClose={handleModal}>
+        <CompanyForm onClose={handleModal} title="Add Company" />
+      </Modal>
+    </main>
   );
 };
 
