@@ -3,16 +3,24 @@ import { useCallback } from 'react';
 import { type SignInValues } from '../../lib/types/types';
 import { SignInValidation } from '../../lib/validation/validation';
 import styles from '../../assets/styles/common-modules/form.module.scss';
+import { useAppDispatch } from '../../lib/hooks/hooks';
+import { login } from '../../slices/auth/actions';
+
+const initialValues: SignInValues = {
+  email: '',
+  password: '',
+};
 
 const SignIn: React.FC = () => {
-  const initialValues: SignInValues = {
-    email: '',
-    password: '',
-  };
+  const dispatch = useAppDispatch();
 
-  const onSubmit = useCallback((values: SignInValues) => {
-    console.log(values);
-  }, []);
+  const onSubmit = useCallback(
+    (values: SignInValues) => {
+      dispatch(login(values));
+    },
+    [dispatch],
+  );
+
   return (
     <div className={styles.container}>
       <h1>Login</h1>

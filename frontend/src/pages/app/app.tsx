@@ -9,8 +9,21 @@ import { Auth } from '../auth/auth';
 import { Companies } from '../companies/companies';
 import { CompanyDetails } from '../company-details/company-details';
 import { Profile } from '../profile/profile';
+import { useEffect } from 'react';
+import { useAppDispatch, useAppSelector } from '../../lib/hooks/hooks';
+import { getProfile } from '../../slices/auth/actions';
 
 function App() {
+  const dispatch = useAppDispatch();
+  const token = localStorage.getItem('token');
+  const user = useAppSelector((state) => state.auth.user);
+
+  useEffect(() => {
+    if (token && !user) {
+      dispatch(getProfile());
+    }
+  }, [dispatch, token, user]);
+
   return (
     <Router>
       <Routes>

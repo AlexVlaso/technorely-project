@@ -4,41 +4,53 @@ import { faPenToSquare } from '@fortawesome/free-solid-svg-icons';
 import { useCallback, useState } from 'react';
 import { Modal } from '../modal/modal';
 import { SignUp } from '../sign-up/sign-up';
+import { useAppSelector } from '../../lib/hooks/hooks';
 
 const ProfileView = () => {
+  const user = useAppSelector((state) => state.auth.user);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const handleModal = useCallback(() => {
     setIsModalOpen((isModalOpen) => !isModalOpen);
   }, []);
 
+  if (!user) {
+    return null;
+  }
+
+  const { firstName, lastName, nickname, email, phone, position, description } =
+    user;
+
   return (
     <div className={styles.container}>
       <h1 className={styles.title}>Profile</h1>
       <div className={styles.param}>
-        <span className={styles.paramTitle}>First Name:</span>Alex
+        <span className={styles.paramTitle}>First Name:</span>
+        {firstName}
       </div>
       <div className={styles.param}>
-        <span className={styles.paramTitle}>Last Name:</span>Vlasov
+        <span className={styles.paramTitle}>Last Name:</span>
+        {lastName}
       </div>
       <div className={styles.param}>
-        <span className={styles.paramTitle}>Nickname:</span>sanyavlaso@gmail.com
+        <span className={styles.paramTitle}>Nickname:</span>
+        {nickname}
       </div>
       <div className={styles.param}>
-        <span className={styles.paramTitle}>Email:</span>sanyavlaso@gmail.com
+        <span className={styles.paramTitle}>Email:</span>
+        {email}
       </div>
       <div className={styles.param}>
-        <span className={styles.paramTitle}>Phone:</span>+380999478944
+        <span className={styles.paramTitle}>Phone:</span>
+        {phone}
       </div>
       <div className={styles.param}>
-        <span className={styles.paramTitle}>Position:</span>dev
+        <span className={styles.paramTitle}>Position:</span>
+        {position}
       </div>
       <div className={styles.param}>
-        <span className={styles.paramTitle}>Description:</span>Lorem ipsum dolor
-        sit amet consectetur adipisicing elit. Sapiente, sed. Voluptate sunt
-        maiores voluptatum delectus dolor necessitatibus deserunt rerum placeat
-        ratione rem! Ipsum beatae exercitationem rem, quis natus aliquid
-        corporis.
+        <span className={styles.paramTitle}>Description:</span>
+        {description}
       </div>
       <button className={styles.edit} onClick={handleModal}>
         <FontAwesomeIcon icon={faPenToSquare} />
@@ -49,7 +61,5 @@ const ProfileView = () => {
     </div>
   );
 };
-
-// email и password, phone number, last name, first name, nickname, description, position.
 
 export { ProfileView };
