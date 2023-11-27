@@ -6,27 +6,36 @@ import styles from './styles.module.scss';
 import { SignUpValidation } from '../../lib/validation/validation';
 import { faXmark } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { useAppDispatch } from '../../lib/hooks/hooks';
+import { signUp } from '../../slices/auth/actions';
+import { AppRoute } from '../../lib/constants/route.constant';
+import { Link } from 'react-router-dom';
 
 type Property = {
   title?: string;
   onClose?: () => void;
 };
 
-const SignUp: React.FC<Property> = ({ title = 'Sign Up', onClose }) => {
-  const initialValues: SignUpValues = {
-    email: '',
-    password: '',
-    phone: '',
-    lastName: '',
-    firstName: '',
-    nickname: '',
-    description: '',
-    position: '',
-  };
+const initialValues: SignUpValues = {
+  email: '',
+  password: '',
+  phone: '',
+  lastName: '',
+  firstName: '',
+  nickname: '',
+  description: '',
+  position: '',
+};
 
-  const onSubmit = useCallback((values: SignUpValues) => {
-    console.log(values);
-  }, []);
+const SignUp: React.FC<Property> = ({ title = 'Sign Up', onClose }) => {
+  const dispatch = useAppDispatch();
+
+  const onSubmit = useCallback(
+    (values: SignUpValues) => {
+      dispatch(signUp(values));
+    },
+    [dispatch],
+  );
 
   return (
     <div className={styles.container}>
@@ -164,6 +173,13 @@ const SignUp: React.FC<Property> = ({ title = 'Sign Up', onClose }) => {
             <button className={styles.btn} type="submit">
               Submit
             </button>
+
+            <p className={styles.text}>
+              Already have an account? Go to{' '}
+              <Link to={AppRoute.SIGN_IN} className={styles.link}>
+                Sign In
+              </Link>
+            </p>
           </Form>
         )}
       </Formik>

@@ -1,5 +1,9 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import { SignInValues, UserWithoutToken } from '../../lib/types/types';
+import {
+  SignInValues,
+  SignUpValues,
+  UserWithoutToken,
+} from '../../lib/types/types';
 import { AsyncThunkConfig } from '../../lib/types/types';
 
 const login = createAsyncThunk<void, SignInValues, AsyncThunkConfig>(
@@ -10,6 +14,16 @@ const login = createAsyncThunk<void, SignInValues, AsyncThunkConfig>(
     await dispatch(getProfile());
   },
 );
+
+const signUp = createAsyncThunk<
+  UserWithoutToken,
+  SignUpValues,
+  AsyncThunkConfig
+>('auth/sign-up', async (payload, { extra }) => {
+  const { accessToken, ...user } = await extra.authApi.signUp(payload);
+  localStorage.setItem('token', accessToken);
+  return user;
+});
 
 const getProfile = createAsyncThunk<
   UserWithoutToken,
@@ -24,4 +38,14 @@ const getProfile = createAsyncThunk<
   }
 });
 
-export { login, getProfile };
+const logout = createAsyncThunk<void, undefined, AsyncThunkConfig>(
+  'auth/logout',
+  async (_, { extra }) => {
+    const { message } = await extra.authApi.logout();
+    if (message) {
+      localStorage.removeItem('token');
+    }
+  },
+);
+
+export { login, getProfile, signUp, logout };

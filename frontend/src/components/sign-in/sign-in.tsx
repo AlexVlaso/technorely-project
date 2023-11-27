@@ -2,9 +2,11 @@ import { Formik, Field, Form } from 'formik';
 import { useCallback } from 'react';
 import { type SignInValues } from '../../lib/types/types';
 import { SignInValidation } from '../../lib/validation/validation';
-import styles from '../../assets/styles/common-modules/form.module.scss';
 import { useAppDispatch } from '../../lib/hooks/hooks';
 import { login } from '../../slices/auth/actions';
+import { Link } from 'react-router-dom';
+import { AppRoute } from '../../lib/constants/route.constant';
+import styles from '../../assets/styles/common-modules/form.module.scss';
 
 const initialValues: SignInValues = {
   email: '',
@@ -63,6 +65,13 @@ const SignIn: React.FC = () => {
             <button className={styles.btn} type="submit">
               Submit
             </button>
+
+            <p className={styles.text}>
+              Don`t have an account yet?{' '}
+              <Link to={AppRoute.SIGN_UP} className={styles.link}>
+                Sign Up
+              </Link>
+            </p>
           </Form>
         )}
       </Formik>
