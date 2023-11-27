@@ -1,16 +1,12 @@
 @import '../../assets/styles/vars.scss';
 
-.main {
-  align-items: flex-start;
+.row {
+  border-bottom: 1px solid $addition-color;
 }
-.add {
-  position: absolute;
-  top: 40px;
-  right: 100px;
+
+.btn {
   margin: 15px 0;
-  padding: 10px 20px;
-  display: flex;
-  column-gap: 10px;
+  padding: 5px 10px;
   background-color: $addition-color;
   border: none;
   border-radius: 4px;
@@ -19,6 +15,6 @@
   cursor: pointer;
 }
 
-.add:hover {
+.btn:hover {
   background-color: #734330;
 }

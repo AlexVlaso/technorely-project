@@ -1,4 +1,5 @@
 import { AuthApi } from '../../../packages/auth/auth-api';
+import { CompanyApi } from '../../../packages/company/company-api';
 import { AppDispatch, RootState } from '../../../packages/store/store';
 
 type AsyncThunkConfig = {
@@ -6,6 +7,7 @@ type AsyncThunkConfig = {
   dispatch: AppDispatch;
   extra: {
     authApi: AuthApi;
+    companyApi: CompanyApi;
   };
 };
 

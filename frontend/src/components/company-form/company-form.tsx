@@ -7,21 +7,26 @@ import clsx from 'clsx';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faXmark } from '@fortawesome/free-solid-svg-icons';
 
+const initial: CompanyValues = {
+  name: '',
+  address: '',
+  serviceOfActivity: '',
+  numberOfEmployees: 0,
+  description: '',
+  type: '',
+};
+
 type Property = {
   title?: string;
   onClose: () => void;
+  initialValues?: CompanyValues;
 };
 
-const CompanyForm: React.FC<Property> = ({ onClose, title = 'Company' }) => {
-  const initialValues: CompanyValues = {
-    name: '',
-    address: '',
-    serviceOfActivity: '',
-    numberOfEmployees: 0,
-    description: '',
-    type: '',
-  };
-
+const CompanyForm: React.FC<Property> = ({
+  onClose,
+  title = 'Company',
+  initialValues = initial,
+}) => {
   const onSubmit = useCallback((values: CompanyValues) => {
     console.log(values);
   }, []);

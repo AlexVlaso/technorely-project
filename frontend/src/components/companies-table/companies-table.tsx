@@ -1,10 +1,19 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import styles from './styles.module.scss';
 import { faListOl } from '@fortawesome/free-solid-svg-icons';
-import { useNavigate } from 'react-router-dom';
+import { useAppDispatch, useAppSelector } from '../../lib/hooks/hooks';
+import { CompaniesTableElement } from '../companies-table-element/companies-table-element';
+import { useEffect } from 'react';
+import { getAllCompanies } from '../../slices/company/actions';
 
 const CompaniesTable: React.FC = () => {
-  const navigate = useNavigate();
+  const dispatch = useAppDispatch();
+  const { companies } = useAppSelector((state) => state.companies);
+
+  useEffect(() => {
+    dispatch(getAllCompanies());
+  }, [dispatch]);
+
   return (
     <div className={styles.container}>
       <table className={styles.table}>
@@ -16,63 +25,19 @@ const CompaniesTable: React.FC = () => {
             <th>Name</th>
             <th>Address</th>
             <th>Service of activity</th>
-            <th>Number of employees</th>
+            <th>Employees</th>
             <th>Type</th>
             <th>Details</th>
           </tr>
         </thead>
         <tbody className={styles.tbody}>
-          <tr className={styles.row}>
-            <td>1</td>
-            <td>Intelias</td>
-            <td>Kharkiv st Sumskaya 43</td>
-            <td>Car washing</td>
-            <td>34</td>
-            <td>Private business</td>
-            <td>
-              <button
-                className={styles.btn}
-                onClick={() => {
-                  navigate('/companies/1');
-                }}
-              >
-                Details
-              </button>
-            </td>
-          </tr>
-          <tr className={styles.row}>
-            <td>2</td>
-            <td>Intelias</td>
-            <td>Kharkiv st Sumskaya 43</td>
-            <td>Car washing</td>
-            <td>34</td>
-            <td>Private business</td>
-            <td>
-              <button className={styles.btn}>Details</button>
-            </td>
-          </tr>
-          <tr className={styles.row}>
-            <td>3</td>
-            <td>Intelias</td>
-            <td>Kharkiv st Sumskaya 43</td>
-            <td>Car washing</td>
-            <td>34</td>
-            <td>Private business</td>
-            <td>
-              <button className={styles.btn}>Details</button>
-            </td>
-          </tr>
-          <tr className={styles.row}>
-            <td>4</td>
-            <td>Intelias</td>
-            <td>Kharkiv st Sumskaya 43</td>
-            <td>Car washing</td>
-            <td>34</td>
-            <td>Private business</td>
-            <td>
-              <button className={styles.btn}>Details</button>
-            </td>
-          </tr>
+          {companies.map((company, index) => (
+            <CompaniesTableElement
+              company={company}
+              index={index + 1}
+              key={company.id}
+            />
+          ))}
         </tbody>
       </table>
     </div>

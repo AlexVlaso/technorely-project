@@ -14,7 +14,7 @@ const Companies: React.FC = () => {
   }, []);
 
   return (
-    <main>
+    <main className={styles.main}>
       <CompaniesTable />
       <button className={styles.add} onClick={handleModal}>
         Add Company <FontAwesomeIcon icon={faPlus} />
