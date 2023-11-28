@@ -2,4 +2,4 @@ type LogoutResponse = {
   message: string;
 };
 
-export { LogoutResponse };
+export { type LogoutResponse };

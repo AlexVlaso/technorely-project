@@ -10,4 +10,4 @@ type UserT = {
   position: string;
   accessToken: string;
 };
-export { UserT };
+export { type UserT };

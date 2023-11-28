@@ -8,4 +8,4 @@ type CompanyT = {
   type: string;
 };
 
-export { CompanyT };
+export { type CompanyT };

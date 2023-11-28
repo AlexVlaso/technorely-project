@@ -4,13 +4,9 @@ export { type CompanyValues } from './form/company-form.type';
 export { type HttpOptions } from './http/http-options.type';
 export { type AsyncThunkConfig } from './thunk/async-thunk-config.type';
 export { type ValueOf } from './common/value-of.type';
-export {
-  type UserT,
-  type CompanyT,
-  type RequestWithUser,
-  type RequestWithUserId,
-  type UserWithoutToken,
-  type UserCommonDetails,
-  type SignInResponse,
-  type LogoutResponse,
-} from '../../../../shared/types/types';
+export { type UserT } from './user/user.type';
+export { type CompanyT } from './company/company.type';
+export { type UserWithoutToken } from './user/user-without-token.type';
+export { type UserCommonDetails } from './user/user-common-details.type';
+export { type SignInResponse } from './response/sign-in-response.type';
+export { type LogoutResponse } from './response/logout-response.type';
