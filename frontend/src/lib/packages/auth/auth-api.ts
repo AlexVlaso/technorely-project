@@ -6,7 +6,7 @@ import {
   UserCommonDetails,
   UserValues,
   UserWithoutToken,
-} from '../../lib/types/types';
+} from '../../types/types';
 import { HttpApi } from '../api/http-api';
 import { AuthRoute } from './constant/auth-route.constat';
 

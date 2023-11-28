@@ -1,4 +1,4 @@
-import { HttpOptions } from '../../lib/types/types';
+import { HttpOptions, ResponseError } from '../../types/types';
 
 class HttpApi {
   private baseUrl: string;
@@ -15,7 +15,9 @@ class HttpApi {
       headers: this.getHeaders(hasAuth),
     });
 
-    return this.checkResponse(response).json() as Promise<T>;
+    const validResponse = await this.checkResponse(response);
+
+    return (await validResponse.json()) as Promise<T>;
   }
 
   private getFullPath(path: string) {
@@ -34,9 +36,10 @@ class HttpApi {
     return headers;
   }
 
-  private checkResponse(response: Response) {
+  private async checkResponse(response: Response) {
     if (!response.ok) {
-      throw new Error(response.statusText);
+      const body = (await response.json()) as ResponseError;
+      throw new Error(body.message);
     }
     return response;
   }

@@ -14,6 +14,9 @@ import { useAppDispatch, useAppSelector } from '../../lib/hooks/hooks';
 import { getProfile } from '../../slices/auth/actions';
 import { PrivateRoute } from '../../components/private-route/private-route';
 import { Header } from '../../components/header/header';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 function App() {
   const dispatch = useAppDispatch();
   const token = localStorage.getItem('token');
@@ -48,6 +51,7 @@ function App() {
           element={<PrivateRoute element={<Profile />} />}
         />
       </Routes>
+      <ToastContainer />
     </Router>
   );
 }

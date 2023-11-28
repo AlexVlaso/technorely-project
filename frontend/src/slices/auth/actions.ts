@@ -6,13 +6,20 @@ import {
   UserWithoutToken,
 } from '../../lib/types/types';
 import { AsyncThunkConfig } from '../../lib/types/types';
+import { ErrorMessage } from '../../lib/constants/error-message.constant';
+import { getErrorNotification } from '../../lib/helpers/get-error-notification.helper';
 
 const login = createAsyncThunk<void, SignInValues, AsyncThunkConfig>(
   'auth/login',
   async (payload, { extra, dispatch }) => {
-    const data = await extra.authApi.signIn(payload);
-    localStorage.setItem('token', data.access_token);
-    await dispatch(getProfile());
+    try {
+      const data = await extra.authApi.signIn(payload);
+
+      localStorage.setItem('token', data.access_token);
+      await dispatch(getProfile());
+    } catch (error) {
+      getErrorNotification(error, ErrorMessage.LOGIN);
+    }
   },
 );
 
@@ -20,22 +27,29 @@ const signUp = createAsyncThunk<
   UserWithoutToken,
   SignUpValues,
   AsyncThunkConfig
->('auth/sign-up', async (payload, { extra }) => {
-  const { accessToken, ...user } = await extra.authApi.signUp(payload);
-  localStorage.setItem('token', accessToken);
-  return user;
+>('auth/sign-up', async (payload, { extra, rejectWithValue }) => {
+  try {
+    const { accessToken, ...user } = await extra.authApi.signUp(payload);
+    localStorage.setItem('token', accessToken);
+    return user;
+  } catch (error) {
+    const message = getErrorNotification(error, ErrorMessage.SIGN_UP);
+    return rejectWithValue(message);
+  }
 });
 
 const getProfile = createAsyncThunk<
   UserWithoutToken,
   undefined,
   AsyncThunkConfig
->('auth/get-profile', async (_, { extra }) => {
+>('auth/get-profile', async (_, { extra, rejectWithValue }) => {
   try {
-    return await extra.authApi.getProfile();
+    const user = await extra.authApi.getProfile();
+    return user;
   } catch (error) {
     localStorage.removeItem('token');
-    throw error;
+    const message = getErrorNotification(error, ErrorMessage.GET_PROFILE);
+    return rejectWithValue(message);
   }
 });
 
@@ -43,16 +57,26 @@ const updateProfile = createAsyncThunk<
   UserWithoutToken,
   UserValues,
   AsyncThunkConfig
->('auth/update-profile', async (payload, { extra }) => {
-  return await extra.authApi.updateProfile(payload);
+>('auth/update-profile', async (payload, { extra, rejectWithValue }) => {
+  try {
+    const user = await extra.authApi.updateProfile(payload);
+    return user;
+  } catch (error) {
+    const message = getErrorNotification(error, ErrorMessage.UPDATE_PROFILE);
+    return rejectWithValue(message);
+  }
 });
 
 const logout = createAsyncThunk<void, undefined, AsyncThunkConfig>(
   'auth/logout',
   async (_, { extra }) => {
-    const { message } = await extra.authApi.logout();
-    if (message) {
-      localStorage.removeItem('token');
+    try {
+      const { message } = await extra.authApi.logout();
+      if (message) {
+        localStorage.removeItem('token');
+      }
+    } catch (error) {
+      getErrorNotification(error, ErrorMessage.LOGOUT);
     }
   },
 );

@@ -1,6 +1,6 @@
 import { configureStore } from '@reduxjs/toolkit';
-import { reducer as authReducer } from '../../slices/auth/auth';
-import { reducer as companiesReducer } from '../../slices/company/company';
+import { reducer as authReducer } from '../../../slices/auth/auth';
+import { reducer as companiesReducer } from '../../../slices/company/company';
 import { authApi } from '../auth/auth';
 import { companyApi } from '../company/company';
 

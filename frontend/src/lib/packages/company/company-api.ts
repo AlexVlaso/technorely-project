@@ -1,4 +1,4 @@
-import { CompanyT, CompanyValues } from '../../lib/types/types';
+import { CompanyT, CompanyValues } from '../../types/types';
 import { HttpApi } from '../api/http-api';
 import { CompanyRoute } from './constant/company-route.constant';
 
