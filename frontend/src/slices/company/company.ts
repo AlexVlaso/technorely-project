@@ -1,10 +1,19 @@
 import { actions } from './company.slice';
-import { getAllCompanies, getCompany } from './actions';
+import {
+  getAllCompanies,
+  getCompany,
+  updateCompany,
+  createCompany,
+  deleteCompany,
+} from './actions';
 
 const allActions = {
   ...actions,
   getAllCompanies,
   getCompany,
+  updateCompany,
+  createCompany,
+  deleteCompany,
 };
 
 export { allActions as actions };

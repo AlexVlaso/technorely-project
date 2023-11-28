@@ -21,7 +21,7 @@ class CompanyApi extends HttpApi {
   }
 
   async createCompany(payload: CompanyValues) {
-    const response = await this.load(CompanyRoute.ROOT, {
+    const response = await this.load<CompanyT>(CompanyRoute.ROOT, {
       hasAuth: true,
       method: 'POST',
       payload: JSON.stringify(payload),
@@ -30,7 +30,7 @@ class CompanyApi extends HttpApi {
   }
 
   async updateCompany(payload: CompanyValues) {
-    const response = await this.load(CompanyRoute.ROOT, {
+    const response = await this.load<CompanyT>(CompanyRoute.ROOT, {
       hasAuth: true,
       method: 'PUT',
       payload: JSON.stringify(payload),

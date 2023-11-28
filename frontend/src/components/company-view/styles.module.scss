@@ -21,10 +21,16 @@
   font-size: 20px;
 }
 
-.edit {
+.editWrapper {
   position: absolute;
   top: 15px;
   right: 15px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.edit {
   border: none;
   background-color: transparent;
   color: $addition-color;

@@ -1,22 +1,44 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import styles from './styles.module.scss';
-import { faPenToSquare } from '@fortawesome/free-solid-svg-icons';
+import { faPenToSquare, faTrash } from '@fortawesome/free-solid-svg-icons';
 import { CompanyForm } from '../company-form/company-form';
 import { Modal } from '../modal/modal';
 import { useCallback, useEffect, useState } from 'react';
 import { useAppDispatch, useAppSelector } from '../../lib/hooks/hooks';
-import { getCompany } from '../../slices/company/actions';
-import { useParams } from 'react-router-dom';
+import {
+  deleteCompany,
+  getCompany,
+  updateCompany,
+} from '../../slices/company/actions';
+import { useNavigate, useParams } from 'react-router-dom';
+import { CompanyValues } from '../../lib/types/types';
+import { AppRoute } from '../../lib/constants/route.constant';
 
 const CompanyView: React.FC = () => {
-  const dispatch = useAppDispatch();
   const { id } = useParams();
+  const navigate = useNavigate();
+  const dispatch = useAppDispatch();
   const company = useAppSelector((state) => state.companies.selectedCompany);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const handleModal = useCallback(() => {
     setIsModalOpen((isModalOpen) => !isModalOpen);
   }, []);
+
+  const handleDelete = useCallback(() => {
+    if (company) {
+      dispatch(deleteCompany(company.id));
+      navigate(AppRoute.COMPANIES);
+    }
+  }, [company, dispatch, navigate]);
+
+  const handleSubmit = useCallback(
+    (values: CompanyValues) => {
+      dispatch(updateCompany(values));
+      setIsModalOpen(false);
+    },
+    [dispatch],
+  );
 
   useEffect(() => {
     if (id) {
@@ -63,14 +85,20 @@ const CompanyView: React.FC = () => {
         <span className={styles.categoryTitle}>Description:</span>
         {description}
       </div>
-      <button className={styles.edit} onClick={handleModal}>
-        <FontAwesomeIcon icon={faPenToSquare} />
-      </button>
+      <div className={styles.editWrapper}>
+        <button className={styles.edit} onClick={handleModal}>
+          <FontAwesomeIcon icon={faPenToSquare} />
+        </button>
+        <button className={styles.edit} onClick={handleDelete}>
+          <FontAwesomeIcon icon={faTrash} />
+        </button>
+      </div>
       <Modal isOpen={isModalOpen} onClose={handleModal}>
         <CompanyForm
           onClose={handleModal}
           title="Edit Company"
           initialValues={company}
+          onSubmit={handleSubmit}
         />
       </Modal>
     </div>

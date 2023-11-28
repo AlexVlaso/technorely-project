@@ -1,5 +1,4 @@
 import { Formik, Field, Form } from 'formik';
-import { useCallback } from 'react';
 import { CompanyValues } from '../../lib/types/types';
 import { CompanyValidation } from '../../lib/validation/validation';
 import styles from './styles.module.scss';
@@ -20,17 +19,15 @@ type Property = {
   title?: string;
   onClose: () => void;
   initialValues?: CompanyValues;
+  onSubmit: (v: CompanyValues) => void;
 };
 
 const CompanyForm: React.FC<Property> = ({
   onClose,
   title = 'Company',
   initialValues = initial,
+  onSubmit,
 }) => {
-  const onSubmit = useCallback((values: CompanyValues) => {
-    console.log(values);
-  }, []);
-
   return (
     <div className={styles.container}>
       <button className={styles.close} onClick={onClose}>
@@ -94,6 +91,7 @@ const CompanyForm: React.FC<Property> = ({
                 id="numberOfEmployees"
                 name="numberOfEmployees"
                 placeholder="Number of Employees"
+                type="number"
                 className={styles.field}
               />
             </div>
