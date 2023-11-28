@@ -1,0 +1,43 @@
+@import '../../assets/styles/common-modules/form.module.scss';
+
+.container {
+  position: relative;
+  width: 600px;
+}
+
+.form {
+  flex-wrap: wrap;
+  flex-direction: row;
+  column-gap: 100px;
+}
+
+.fieldWrapper {
+  display: flex;
+  flex-direction: column;
+}
+
+.textareaWrapper {
+  display: flex;
+  flex-direction: column;
+  width: 90%;
+}
+.field {
+  width: 210px;
+}
+
+.textarea {
+  height: 150px;
+  width: 100%;
+  resize: none;
+}
+
+.close {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  border: none;
+  background-color: transparent;
+  color: $addition-color;
+  font-size: 25px;
+  cursor: pointer;
+}

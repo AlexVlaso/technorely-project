@@ -3,6 +3,7 @@ import {
   Controller,
   Get,
   Post,
+  Put,
   Request,
   UseGuards,
 } from '@nestjs/common';
@@ -18,6 +19,7 @@ import {
 } from 'src/libs/types/types';
 import { CreateUserDto } from 'src/user/dto/create-user.dto';
 import { UserWithoutToken } from 'src/libs/types/types';
+import { UpdateUserDto } from 'src/user/dto/update-user.dto';
 
 @Controller('auth')
 export class AuthController {
@@ -40,6 +42,14 @@ export class AuthController {
     @Request() req: RequestWithUserId,
   ): Promise<UserWithoutToken> {
     return this.authService.getProfile(req.user.id);
+  }
+
+  @Put('profile')
+  @UseGuards(JwtAuthGuard)
+  async updateProfile(
+    @Body() body: UserWithoutToken,
+  ): Promise<UserWithoutToken> {
+    return this.authService.updateProfile(body);
   }
 
   @Get('logout')

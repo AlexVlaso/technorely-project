@@ -13,6 +13,7 @@ import {
   UserWithoutToken,
 } from 'src/libs/types/types';
 import { CreateUserDto } from 'src/user/dto/create-user.dto';
+import { UpdateUserDto } from 'src/user/dto/update-user.dto';
 
 @Injectable()
 export class AuthService {
@@ -51,6 +52,13 @@ export class AuthService {
   async getProfile(id: number): Promise<UserWithoutToken> {
     const { password, accessToken, ...pureUser } =
       await this.usersService.findById(id);
+    return pureUser;
+  }
+
+  async updateProfile(dto: UserWithoutToken): Promise<UserWithoutToken> {
+    const userFromDB = await this.usersService.findById(dto.id);
+    const { password, accessToken, ...pureUser } =
+      await this.usersService.update({ ...userFromDB, ...dto });
     return pureUser;
   }
 

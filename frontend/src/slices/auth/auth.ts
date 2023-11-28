@@ -1,5 +1,5 @@
 import { actions } from './auth.slice';
-import { login, getProfile, signUp, logout } from './actions';
+import { login, getProfile, signUp, logout, updateProfile } from './actions';
 
 const allActions = {
   ...actions,
@@ -7,6 +7,7 @@ const allActions = {
   signUp,
   getProfile,
   logout,
+  updateProfile,
 };
 
 export { allActions as actions };

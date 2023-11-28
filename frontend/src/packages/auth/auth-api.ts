@@ -4,6 +4,7 @@ import {
   SignInValues,
   SignUpValues,
   UserCommonDetails,
+  UserValues,
   UserWithoutToken,
 } from '../../lib/types/types';
 import { HttpApi } from '../api/http-api';
@@ -33,6 +34,15 @@ class AuthApi extends HttpApi {
       method: 'GET',
       hasAuth: true,
       payload: null,
+    });
+    return response;
+  }
+
+  async updateProfile(payload: UserValues): Promise<UserWithoutToken> {
+    const response = await this.load<UserWithoutToken>(AuthRoute.PROFILE, {
+      method: 'PUT',
+      hasAuth: true,
+      payload: JSON.stringify(payload),
     });
     return response;
   }

@@ -3,8 +3,8 @@ import styles from './styles.module.scss';
 import { faPenToSquare } from '@fortawesome/free-solid-svg-icons';
 import { useCallback, useState } from 'react';
 import { Modal } from '../modal/modal';
-import { SignUp } from '../sign-up/sign-up';
 import { useAppSelector } from '../../lib/hooks/hooks';
+import { UserForm } from '../user-form/user-form';
 
 const ProfileView = () => {
   const user = useAppSelector((state) => state.auth.user);
@@ -56,7 +56,7 @@ const ProfileView = () => {
         <FontAwesomeIcon icon={faPenToSquare} />
       </button>
       <Modal isOpen={isModalOpen} onClose={handleModal}>
-        <SignUp title="Edit Profile" onClose={handleModal} />
+        <UserForm onClose={handleModal} initialValues={user} />
       </Modal>
     </div>
   );

@@ -1,6 +1,6 @@
 import { SerializedError, createSlice, isAnyOf } from '@reduxjs/toolkit';
 import { UserWithoutToken, ValueOf } from '../../lib/types/types';
-import { getProfile, login, logout, signUp } from './actions';
+import { getProfile, login, logout, signUp, updateProfile } from './actions';
 import { DataStatus } from '../../lib/enum/data-status.enum';
 
 type State = {
@@ -31,7 +31,11 @@ const { actions, name, reducer } = createSlice({
         state.error = null;
       })
       .addMatcher(
-        isAnyOf(getProfile.fulfilled, signUp.fulfilled),
+        isAnyOf(
+          getProfile.fulfilled,
+          signUp.fulfilled,
+          updateProfile.fulfilled,
+        ),
         (state, actions) => {
           state.user = actions.payload;
           state.dataStatus = DataStatus.FULFILLED;
@@ -44,6 +48,7 @@ const { actions, name, reducer } = createSlice({
           getProfile.pending,
           signUp.pending,
           logout.pending,
+          updateProfile.pending,
         ),
         (state) => {
           state.dataStatus = DataStatus.PENDING;
@@ -55,6 +60,7 @@ const { actions, name, reducer } = createSlice({
           getProfile.rejected,
           signUp.rejected,
           logout.rejected,
+          updateProfile.rejected,
         ),
         (state, actions) => {
           state.dataStatus = DataStatus.REJECTED;

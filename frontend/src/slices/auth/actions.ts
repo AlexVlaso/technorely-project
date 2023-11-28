@@ -2,6 +2,7 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 import {
   SignInValues,
   SignUpValues,
+  UserValues,
   UserWithoutToken,
 } from '../../lib/types/types';
 import { AsyncThunkConfig } from '../../lib/types/types';
@@ -38,6 +39,14 @@ const getProfile = createAsyncThunk<
   }
 });
 
+const updateProfile = createAsyncThunk<
+  UserWithoutToken,
+  UserValues,
+  AsyncThunkConfig
+>('auth/update-profile', async (payload, { extra }) => {
+  return await extra.authApi.updateProfile(payload);
+});
+
 const logout = createAsyncThunk<void, undefined, AsyncThunkConfig>(
   'auth/logout',
   async (_, { extra }) => {
@@ -48,4 +57,4 @@ const logout = createAsyncThunk<void, undefined, AsyncThunkConfig>(
   },
 );
 
-export { login, getProfile, signUp, logout };
+export { login, getProfile, updateProfile, signUp, logout };

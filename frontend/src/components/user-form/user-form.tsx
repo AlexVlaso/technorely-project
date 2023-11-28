@@ -1,42 +1,42 @@
 import { Formik, Field, Form } from 'formik';
 import { useCallback } from 'react';
-import { type SignUpValues } from '../../lib/types/types';
+import { type UserValues } from '../../lib/types/types';
 import { clsx } from 'clsx';
-import styles from './styles.module.scss';
-import { SignUpValidation } from '../../lib/validation/validation';
+import { UserValidation } from '../../lib/validation/validation';
+import { faXmark } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useAppDispatch } from '../../lib/hooks/hooks';
-import { signUp } from '../../slices/auth/actions';
-import { AppRoute } from '../../lib/constants/route.constant';
-import { Link } from 'react-router-dom';
+import { updateProfile } from '../../slices/auth/actions';
+import styles from './styles.module.scss';
 
-const initialValues: SignUpValues = {
-  email: '',
-  password: '',
-  phone: '',
-  lastName: '',
-  firstName: '',
-  nickname: '',
-  description: '',
-  position: '',
+type Property = {
+  initialValues: UserValues;
+  onClose: () => void;
 };
 
-const SignUp: React.FC = () => {
+const UserForm: React.FC<Property> = ({ onClose, initialValues }) => {
   const dispatch = useAppDispatch();
 
   const onSubmit = useCallback(
-    (values: SignUpValues) => {
-      dispatch(signUp(values));
+    (values: UserValues) => {
+      dispatch(updateProfile(values));
+      onClose();
     },
-    [dispatch],
+    [dispatch, onClose],
   );
 
   return (
     <div className={styles.container}>
-      <h1>Sign Up</h1>
+      <h1>Edit Profile</h1>
+
+      <button className={styles.close} onClick={onClose}>
+        <FontAwesomeIcon icon={faXmark} />
+      </button>
+
       <Formik
         initialValues={initialValues}
         onSubmit={onSubmit}
-        validationSchema={SignUpValidation}
+        validationSchema={UserValidation}
       >
         {({ errors, touched }) => (
           <Form className={styles.form}>
@@ -111,37 +111,6 @@ const SignUp: React.FC = () => {
                 <div className={styles.error}>{errors.email}</div>
               )}
             </div>
-            <div className={styles.fieldWrapper}>
-              <label htmlFor="password" className={styles.label}>
-                Password:
-              </label>
-              <Field
-                id="password"
-                name="password"
-                placeholder="password"
-                type="password"
-                autoComplete="on"
-                className={styles.field}
-              />
-              {errors.password && touched.password && (
-                <div className={styles.error}>{errors.password}</div>
-              )}
-            </div>
-            <div className={styles.fieldWrapper}>
-              <label htmlFor="description" className={styles.label}>
-                Description:
-              </label>
-              <Field
-                id="description"
-                name="description"
-                placeholder="Description"
-                className={clsx([styles.field, styles.textarea])}
-                as="textarea"
-              />
-              {errors.description && touched.description && (
-                <div className={styles.error}>{errors.description}</div>
-              )}
-            </div>
 
             <div className={styles.fieldWrapper}>
               <label htmlFor="position" className={styles.label}>
@@ -158,16 +127,25 @@ const SignUp: React.FC = () => {
               )}
             </div>
 
-            <button className={styles.btn} type="submit">
-              Submit
-            </button>
+            <div className={styles.textareaWrapper}>
+              <label htmlFor="description" className={styles.label}>
+                Description:
+              </label>
+              <Field
+                id="description"
+                name="description"
+                placeholder="Description"
+                className={clsx([styles.field, styles.textarea])}
+                as="textarea"
+              />
+              {errors.description && touched.description && (
+                <div className={styles.error}>{errors.description}</div>
+              )}
+            </div>
 
-            <p className={styles.text}>
-              Already have an account? Go to{' '}
-              <Link to={AppRoute.SIGN_IN} className={styles.link}>
-                Sign In
-              </Link>
-            </p>
+            <button className={styles.btn} type="submit">
+              Save
+            </button>
           </Form>
         )}
       </Formik>
@@ -175,4 +153,4 @@ const SignUp: React.FC = () => {
   );
 };
 
-export { SignUp };
+export { UserForm };
