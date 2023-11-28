@@ -14,6 +14,16 @@ const CompaniesTable: React.FC = () => {
     dispatch(getAllCompanies());
   }, [dispatch]);
 
+  if (companies.length === 0) {
+    return (
+      <div className={styles.messageWrapper}>
+        <h2 className={styles.message}>
+          There are no data here yet. Please, add a company
+        </h2>
+      </div>
+    );
+  }
+
   return (
     <div className={styles.container}>
       <table className={styles.table}>

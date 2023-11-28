@@ -29,3 +29,15 @@ td {
 th:last-child {
   border: none;
 }
+
+.messageWrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: calc(100vh - 76px);
+}
+
+.message {
+  font-size: 28px;
+}
