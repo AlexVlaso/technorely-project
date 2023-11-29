@@ -18,5 +18,5 @@ This is the repository responsible for final task of Technorely internship.
 
 1. **`npm run install:all`** at the root
 2. Fill ENVs
-3. To start Server -'cd backend' and 'npm run start:dev'
-4. To start Client -'cd frontend' and 'npm run dev'
+3. To start Server - **'cd backend'** and **'npm run start:dev'**
+4. To start Client - **'cd frontend'** and '**npm run dev'**
