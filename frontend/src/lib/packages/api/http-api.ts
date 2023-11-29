@@ -1,4 +1,4 @@
-import { StorageElement } from '../../constants/storage-element.constant';
+import { StorageElement } from '../../enum/storage-element.enum';
 import { HttpOptions, ResponseError } from '../../types/types';
 
 class HttpApi {

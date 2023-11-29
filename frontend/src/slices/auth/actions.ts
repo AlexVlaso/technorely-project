@@ -8,7 +8,7 @@ import {
 import { AsyncThunkConfig } from '../../lib/types/types';
 import { ErrorMessage } from '../../lib/constants/error-message.constant';
 import { getErrorNotification } from '../../lib/helpers/get-error-notification.helper';
-import { StorageElement } from '../../lib/constants/storage-element.constant';
+import { StorageElement } from '../../lib/enum/storage-element.enum';
 
 const login = createAsyncThunk<void, SignInValues, AsyncThunkConfig>(
   'auth/login',

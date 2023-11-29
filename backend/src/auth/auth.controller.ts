@@ -19,7 +19,6 @@ import {
 } from 'src/libs/types/types';
 import { CreateUserDto } from 'src/user/dto/create-user.dto';
 import { UserWithoutToken } from 'src/libs/types/types';
-import { UpdateUserDto } from 'src/user/dto/update-user.dto';
 
 @Controller('auth')
 export class AuthController {
