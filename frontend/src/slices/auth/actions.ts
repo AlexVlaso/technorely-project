@@ -8,6 +8,7 @@ import {
 import { AsyncThunkConfig } from '../../lib/types/types';
 import { ErrorMessage } from '../../lib/constants/error-message.constant';
 import { getErrorNotification } from '../../lib/helpers/get-error-notification.helper';
+import { StorageElement } from '../../lib/constants/storage-element.constant';
 
 const login = createAsyncThunk<void, SignInValues, AsyncThunkConfig>(
   'auth/login',
@@ -15,7 +16,7 @@ const login = createAsyncThunk<void, SignInValues, AsyncThunkConfig>(
     try {
       const data = await extra.authApi.signIn(payload);
 
-      localStorage.setItem('token', data.access_token);
+      localStorage.setItem(StorageElement.TOKEN, data.access_token);
       await dispatch(getProfile());
     } catch (error) {
       getErrorNotification(error, ErrorMessage.LOGIN);
@@ -30,7 +31,7 @@ const signUp = createAsyncThunk<
 >('auth/sign-up', async (payload, { extra, rejectWithValue }) => {
   try {
     const { accessToken, ...user } = await extra.authApi.signUp(payload);
-    localStorage.setItem('token', accessToken);
+    localStorage.setItem(StorageElement.TOKEN, accessToken);
     return user;
   } catch (error) {
     const message = getErrorNotification(error, ErrorMessage.SIGN_UP);
@@ -47,7 +48,7 @@ const getProfile = createAsyncThunk<
     const user = await extra.authApi.getProfile();
     return user;
   } catch (error) {
-    localStorage.removeItem('token');
+    localStorage.removeItem(StorageElement.TOKEN);
     const message = getErrorNotification(error, ErrorMessage.GET_PROFILE);
     return rejectWithValue(message);
   }
@@ -73,7 +74,7 @@ const logout = createAsyncThunk<void, undefined, AsyncThunkConfig>(
     try {
       const { message } = await extra.authApi.logout();
       if (message) {
-        localStorage.removeItem('token');
+        localStorage.removeItem(StorageElement.TOKEN);
       }
     } catch (error) {
       getErrorNotification(error, ErrorMessage.LOGOUT);

@@ -1,3 +1,4 @@
+import { StorageElement } from '../../constants/storage-element.constant';
 import { HttpOptions, ResponseError } from '../../types/types';
 
 class HttpApi {
@@ -21,7 +22,7 @@ class HttpApi {
   }
 
   private getFullPath(path: string) {
-    return this.baseUrl + path;
+    return `${this.baseUrl}/${path}`;
   }
 
   private getHeaders(hasAuth: boolean) {
@@ -30,7 +31,7 @@ class HttpApi {
     if (hasAuth) {
       headers.append(
         'authorization',
-        `Bearer ${localStorage.getItem('token') ?? ''}`,
+        `Bearer ${localStorage.getItem(StorageElement.TOKEN) ?? ''}`,
       );
     }
     return headers;
